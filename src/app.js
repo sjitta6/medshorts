@@ -65,7 +65,7 @@ async function authorization(authorizationHeader){
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://web.sit1.platform.caremarket.ai/api/xpocareIdentityServices/xpocare/v2/user/xpocareuserinfo',
+        url: authorizationurl,
         headers: { 
             'true-client-ip': '10.0.0.0', 
             'Accept': 'application/json', 
