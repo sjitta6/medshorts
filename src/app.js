@@ -61,6 +61,9 @@ newsbot.readnews();
 //authorize using usertoken
 async function authorization(authorizationHeader){
     const token = authorizationHeader.split(' ')[1];
+    console.log(authorizationurl);
+    console.log(token);
+    
    
     let config = {
         method: 'post',
