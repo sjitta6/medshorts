@@ -91,8 +91,15 @@ async function authorization(authorizationHeader){
 app.get('/fetchnews/',async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const authorizationHeader = req.headers.authorization;
-
-    if (authorizationHeader && authorizationHeader.startsWith('Bearer ')){
+    if (authorizationHeader && authorizationHeader == 'Bearer no account'){ //if not logged in,don't verify
+        const returnData = await newsDao.getNews();
+        try {
+            res.send(JSON.parse(JSON.stringify(returnData)));
+        } catch (e) {
+            res.status(500).send({"status": "get new from in-memory databse failed", "error": e})
+        }   
+    }
+    else if (authorizationHeader && authorizationHeader.startsWith('Bearer ')){
         try{
             const authorizationRes =await authorization(authorizationHeader);
             if (authorizationRes == ''){
