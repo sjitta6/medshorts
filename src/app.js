@@ -40,7 +40,7 @@ app.use(cookieParser());
 newsDao.instantiate();
 
 
-// newsbot.readnews();
+newsbot.readnews();
 
 
  new CronJob(
