@@ -36,7 +36,7 @@ async function readnews() {
 
   subcategories_list = ['Nutrition','Research','Medication','Tech','Mental Health','Environment'];
 
-  for(let idx = 0; idx < 1; idx++){
+  for(let idx = 0; idx < subcategories_list.length; idx++){
     const subcategories = subcategories_list[idx];
 
     var called_url = base_url+'&q='+subcategories;
