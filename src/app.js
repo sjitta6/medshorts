@@ -40,23 +40,23 @@ app.use(cookieParser());
 newsDao.instantiate();
 
 
-newsbot.readnews();
+// newsbot.readnews();
 
 
-//  new CronJob(
-//      "0 4 * * *",
-//     async function () {
-//         console.log("Running cron Job at "+ Date.now())
-//       //run every day at 4`o clock  in the morning
-//         await newsbot.readnews();
-//         // await webbot.scrape();
-//         // await nlpbot.summarize();
+ new CronJob(
+     "0 4 * * *",
+    async function () {
+        console.log("Running cron Job at "+ Date.now())
+      //run every day at 4`o clock  in the morning
+        await newsbot.readnews();
+        // await webbot.scrape();
+        // await nlpbot.summarize();
 
-//     },
-//     null,
-//     true,
-//     'America/Los_Angeles'
-// );
+    },
+    null,
+    true,
+    'America/Los_Angeles'
+);
 
 //authorize using usertoken
 async function authorization(authorizationHeader){
@@ -108,6 +108,7 @@ app.get('/fetchnews/',async function (req, res) {
             }
             else{
                 const returnData = await newsDao.getNews();
+                console.log('nutrition news length:',returnData['Nutrition'].length);
                 try {
                     res.send(JSON.parse(JSON.stringify(returnData)));
                 } catch (e) {
