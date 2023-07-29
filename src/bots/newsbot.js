@@ -5,7 +5,7 @@ const util = require("../utils/util");
 const summarizeAsync = require('./nlpbot.js');
 const axios = require('axios');
 const delayInMilliseconds = 90000;
-const newsSize = 25; //How many news we want for each sub-categories
+const newsSize = 3; //How many news we want for each sub-categories
 
 const config = require ('../config/config.js');
 let goPerigonApiKey = config.goPerigonApiKey;
@@ -36,7 +36,7 @@ async function readnews() {
 
   subcategories_list = ['Nutrition','Research','Medication','Tech','Mental Health','Environment'];
 
-  for(let idx = 0; idx < subcategories_list.length; idx++){
+  for(let idx = 0; idx < 1; idx++){
     const subcategories = subcategories_list[idx];
 
     var called_url = base_url+'&q='+subcategories;
@@ -50,7 +50,7 @@ async function readnews() {
       }
       element = newList.articles[idx];
       //calculate how long the article has been published according to current time and assign it to publishedTimeGap
-      element.publishedTimeGap = timeSince(element.pubDate);
+      // element.publishedTimeGap = timeSince(element.pubDate);
       
       //summary content using cohere api and assign it to summary_new
       const newsSummary = await summarizeAsync(element.content, idx);
