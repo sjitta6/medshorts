@@ -32,6 +32,7 @@ async function fetchNewsList(url){
 
 
 async function readnews() {
+  // console.log('go perigon api key:', goPerigonApiKey);
   base_url = 'https://api.goperigon.com/v1/all?apiKey=' + goPerigonApiKey+ '&from=2023-07-04&sourceGroup=top100&showNumResults=true&showReprints=false&excludeLabel=Non-news&excludeLabel=Opinion&excludeLabel=Paid News&excludeLabel=Roundup&excludeLabel=Press Release&sortBy=date&category=Health&size='+newsSize;
 
   subcategories_list = ['Nutrition','Research','Medication','Tech','Mental Health','Environment'];

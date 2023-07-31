@@ -40,7 +40,7 @@ app.use(cookieParser());
 newsDao.instantiate();
 
 
-// newsbot.readnews();
+newsbot.readnews();
 
 
  new CronJob(
@@ -61,9 +61,8 @@ newsDao.instantiate();
 //authorize using usertoken
 async function authorization(authorizationHeader){
     const token = authorizationHeader.split(' ')[1];
-    console.log(authorizationurl);
-    console.log(token);
-    
+    // console.log(authorizationurl);
+    // console.log(token);
    
     let config = {
         method: 'post',
