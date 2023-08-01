@@ -2,6 +2,7 @@
 
 const CronJob = require('cron').CronJob;
 var cookieParser = require('cookie-parser');
+// const summarizeAsync = require('./bots/nlpbot.js');
 
 const cors = require("cors");
 
@@ -39,8 +40,10 @@ app.use(cookieParser());
 
 newsDao.instantiate();
 
+// text = 'WASHINGTON AP  The National Institutes of Health is beginning a handful of studies to test possible treatments for long COVID an anxiously awaited step in US efforts against the mysterious condition that afflicts millions Mondays announcement from the NIHs 115 billion RECOVER project comes amid frustration from patients whove struggled for months or even years with sometimesdisabling health problems  with no proven treatments and only a smattering of rigorous studies to test potential ones. This is a year or two late and smaller in scope than one would hope but nevertheless its a step in the right direction said Dr Ziyad AlAly of Washington University in St Louis who isnt involved with NIHs project but whose own research highlighted long COVIDs toll Getting answers is critical he added because theres a lot of people out there exploiting patients vulnerability with unproven therapies.Scientists dont yet know what causes long COVID the catchall term for about 200 widely varying symptoms Between 10 and 30 of people are estimated to have experienced some form of long COVID after recovering from a coronavirus infection a risk that has dropped somewhat since early in the pandemic.If I get 10 people I get 10 answers of what long COVID really is US Health and Human Services Secretary Xavier Becerra said';
 
-newsbot.readnews();
+// summarizeAsync(text,0);
+// newsbot.readnews();
 
 
  new CronJob(

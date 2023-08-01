@@ -6,10 +6,21 @@ const cohere = require('cohere-ai');
 
 const config = require ('../config/config.js');
 const Jasypt = require ('jasypt');
+const { response } = require('express');
 const jasypt = new Jasypt();
 jasypt.setPassword(process.env['urlpassword']);
+const delayInMilliseconds = 60000;
 
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+function truncateString(input_text, maxlength){
+  if (input_text.length > maxlength){
+    return input_text.substring(0, maxlength);
+  }
+  return input_text;
+}
 async function summarizeAsync(text, news_idx) {
   //call nlp tool and summarize the entire content from webbot
   //Use different api key due to free api key rate limit(5 calls/minute at most)
@@ -33,11 +44,26 @@ async function summarizeAsync(text, news_idx) {
   }
 
   try{
-    const response = await cohere.summarize({
+    var response = await cohere.summarize({
       text: text,
-      length:'auto',
-      additional_command:'180-240 characters',
+      length:'short',
+      additional_command:'at most 180 characters',
     });
+    // console.log('news ', news_idx, response.body.summary.length );
+    iter_cnt = 0;
+    while (response.body.summary.length > 190 && iter_cnt < 3){
+      iter_cnt += 1;
+      await delay(delayInMilliseconds);
+      response = await cohere.summarize({
+        text: truncateString(text, 190)+'a'.repeat(312),
+        length:'short',
+        temperature:0.7,
+        additional_command:'make it shorter',
+      });
+      // console.log('iter_cnt: ', iter_cnt, ' ', response.body.summary.length);
+      // console.log(response.body.summary);
+    } 
+    console.log('news ', news_idx, response.body.summary.length );
     return response.body.summary;
   } catch (error){
     console.log('error producing summary', error);
