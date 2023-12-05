@@ -49,7 +49,6 @@ async function summarizeAsync(text, news_idx) {
       length:'short',
       additional_command:'at most 180 characters',
     });
-    // console.log('news ', news_idx, response.body.summary.length );
     iter_cnt = 0;
     while (response.body.summary.length > 190 && iter_cnt < 3){
       iter_cnt += 1;
@@ -60,13 +59,9 @@ async function summarizeAsync(text, news_idx) {
         temperature:0.7,
         additional_command:'make it shorter',
       });
-      // console.log('iter_cnt: ', iter_cnt, ' ', response.body.summary.length);
-      // console.log(response.body.summary);
     } 
-    console.log('news ', news_idx, response.body.summary.length );
     return response.body.summary;
   } catch (error){
-    console.log('error producing summary', error);
     return '';
   }
 

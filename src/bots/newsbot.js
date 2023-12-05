@@ -32,7 +32,6 @@ async function fetchNewsList(url){
 
 
 async function readnews() {
-  // console.log('go perigon api key:', goPerigonApiKey);
   base_url = 'https://api.goperigon.com/v1/all?apiKey=' + goPerigonApiKey+ '&from=2023-07-04&sourceGroup=top100&showNumResults=true&showReprints=false&excludeLabel=Non-news&excludeLabel=Opinion&excludeLabel=Paid News&excludeLabel=Roundup&excludeLabel=Press Release&sortBy=date&category=Health&size='+newsSize;
 
   subcategories_list = ['Nutrition','Research','Medication','Tech','Mental Health','Environment'];
@@ -41,7 +40,6 @@ async function readnews() {
     const subcategories = subcategories_list[idx];
 
     var called_url = base_url+'&q='+subcategories;
-    console.log(called_url);
 
     const newList = await fetchNewsList(called_url);
     for (let idx = 0; idx < newList.articles.length; idx++){
@@ -50,8 +48,6 @@ async function readnews() {
         await delay(delayInMilliseconds);
       }
       element = newList.articles[idx];
-      //calculate how long the article has been published according to current time and assign it to publishedTimeGap
-      // element.publishedTimeGap = timeSince(element.pubDate);
 
 
       //summary content using cohere api and assign it to summary_new
@@ -59,11 +55,9 @@ async function readnews() {
 
       if (newsSummary == undefined){
         element.summary_new = element.summary;
-        console.log('news ', idx, ' is not summarized using AI');
       }
       else{
         element.summary_new = newsSummary;
-        console.log('news ', idx , ' is summarized using AI');
       }
 
       for (const key of keysToKeep){
